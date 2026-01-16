@@ -137,11 +137,17 @@ formStaff.addEventListener("submit", async (e) => {
     const rol = document.getElementById("staffRol").value;
 
     try {
-        await setDoc(doc(db, "usuarios_autorizados", email), { email, rol, creado_en: new Date() });
+        // AQUÍ ESTÁ EL SECRETO: Usamos 'email' como el nombre del documento
+        const docRef = doc(db, "usuarios_autorizados", email); 
+        await setDoc(docRef, {
+            email: email,
+            rol: rol,
+            creado_en: new Date()
+        });
         formStaff.reset();
-        alert("✅ Usuario autorizado");
+        alert("✅ " + email + " ahora es " + rol);
     } catch (error) {
-        alert("❌ No tienes permiso para gestionar personal.");
+        alert("❌ No tienes permisos de Admin para autorizar personal.");
     }
 });
 
@@ -258,4 +264,5 @@ document.getElementById("logout").addEventListener("click", async () => {
   await logout();
   window.location.href = "../login/index.html";
 });
+
 
