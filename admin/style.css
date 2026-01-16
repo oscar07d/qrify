@@ -59,12 +59,6 @@ body {
   transition: all 0.2s ease;
 }
 
-.btn-logout:hover {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: #ef4444;
-  color: #ef4444;
-}
-
 /* 2. ÁREA DE ACCIÓN (FORMULARIO) */
 .action-area h3 {
   margin-bottom: 12px;
@@ -136,65 +130,92 @@ body {
 }
 
 .guest-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Tarjetas responsive */
-  gap: 16px;
-  max-height: 500px;
-  overflow-y: auto;
-  padding-right: 4px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
 }
-
 /* TARJETA DE INVITADO (Copia esto tal cual) */
 .guest-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: background 0.2s;
+    position: relative; /* Necesario para ubicar el botón de eliminar */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
 
 .guest-card:hover {
-  background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .guest-name {
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    padding-right: 30px; /* Espacio para que el nombre no choque con el botón */
 }
 
 .guest-code {
-  font-family: monospace;
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.4);
-  background: rgba(0,0,0,0.3);
-  padding: 4px 8px;
-  border-radius: 4px;
-  align-self: flex-start;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: monospace;
 }
 
 /* BADGES ESTADO */
 .status-badge {
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-top: auto; /* Empuja el badge al fondo si la tarjeta crece */
-  padding-top: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.status-badge.active { color: #2ecc71; }
-.status-badge.used { color: #e74c3c; opacity: 0.7; }
+.status-badge.active { background: rgba(0, 255, 127, 0.15); color: #00ff7f; }
+.status-badge.used { background: rgba(255, 77, 77, 0.15); color: #ff4d4d; }
 
 /* Agrupar los botones a la derecha */
 .header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* Espacio entre el ícono QR y el botón Salir */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-nav, .btn-scan, .btn-logout {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-nav:hover, .btn-scan:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4f9cff;
+}
+
+.btn-logout:hover {
+    background: rgba(255, 77, 77, 0.1);
+    border-color: #ff4d4d;
+    color: #ff4d4d;
 }
 
 /* Estilo del botón de escáner */
@@ -225,6 +246,196 @@ body {
   display: block;
 }
 
+/* Manejo de vistas */
+.hidden {
+    display: none !important;
+}
+
+/* Botón de navegación (Personal) */
+.btn-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.btn-nav:hover {
+    background: #4f9cff;
+    color: #000;
+}
+
+/* --- SECCIÓN PERSONAL --- */
+.staff-management {
+    margin-bottom: 30px;
+}
+
+/* Estilos para el Formulario de Staff */
+.creation-form select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+    appearance: none; /* Quita el estilo por defecto del sistema */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 35px;
+}
+
+.creation-form select:focus {
+    border-color: #4f9cff;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.creation-form select option {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+/* Lista de Staff */
+.staff-list {
+    display: grid;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.staff-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.staff-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.staff-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.staff-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #4f9cff;
+    font-weight: 600;
+}
+
+/* Acciones en la tarjeta de staff */
+.staff-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Select pequeño para cambio de rol rápido */
+.select-rol-small {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #4f9cff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+.select-rol-small:focus {
+    border-color: #4f9cff;
+}
+
+.btn-del-staff {
+    background: rgba(255, 77, 77, 0.1);
+    color: #ff4d4d;
+    border: 1px solid rgba(255, 77, 77, 0.3);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.btn-del-staff:hover {
+    background: #ff4d4d;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 77, 77, 0.3);
+}
+
+.btn-del-staff svg {
+    display: block;
+}
+
+/* --- BOTÓN ELIMINAR EN LISTA DE INVITADOS --- */
+
+/* Contenedor de acciones en la tarjeta */
+.guest-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+/* El botón circular */
+.btn-icon-del {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 77, 77, 0.1);
+    border: none;
+    color: #ff4d4d;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Efecto al pasar el mouse */
+.btn-icon-del:hover {
+    background: #ff4d4d;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Efecto al hacer clic */
+.btn-icon-del:active {
+    transform: scale(0.95);
+}
+
+/* Asegurar que el SVG mantenga su tamaño */
+.btn-icon-del svg {
+    width: 18px;
+    height: 18px;
+}
 /* Responsive para móviles */
 @media (max-width: 600px) {
   .creation-form {
