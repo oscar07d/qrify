@@ -184,4 +184,3 @@ document.addEventListener("DOMContentLoaded", () => {
     // iniciarCamara(); <--- BORRA O COMENTA ESTA LÍNEA AL FINAL
 });
 
-
