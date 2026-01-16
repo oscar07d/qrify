@@ -1,5 +1,5 @@
 // 1. IMPORTA "auth" y "onAuthStateChanged"
-import { protegerPagina, logout, auth } from "../js/auth.js"; // <--- Asegúrate de importar 'auth' aquí
+import { protegerPagina, logout, auth } from "js/auth.js"; // <--- Asegúrate de importar 'auth' aquí
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js"; // <--- Importa esto
 
 protegerPagina();
@@ -131,4 +131,5 @@ onAuthStateChanged(auth, (user) => {
     // Si no hay usuario, no intentamos cargar nada (protegerPagina redirigirá)
     console.log("Usuario no autenticado, esperando redirección...");
   }
+
 });
