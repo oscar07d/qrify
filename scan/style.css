@@ -240,3 +240,35 @@ body {
   50% { transform: scale(1.25); }
   100% { transform: scale(1); }
 }
+
+/* PANTALLA DE INICIO (OVERLAY) */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.overlay.hidden {
+  display: none; /* Se oculta cuando le das click */
+}
+
+.overlay-content h1 { font-size: 2rem; margin-bottom: 10px; color: #fff; }
+.overlay-content p { color: #ccc; margin-bottom: 20px; }
+
+#btnStart {
+  background: #4f9cff;
+  color: #000;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(79, 156, 255, 0.5);
+  animation: pulse 1.5s infinite;
+}
