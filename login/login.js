@@ -1,4 +1,4 @@
-import { loginEmail, loginGoogle } from "../js/auth.js";
+import { loginEmail, loginGoogle } from "js/auth.js";
 
 const form = document.getElementById("loginForm");
 const error = document.getElementById("error");
@@ -28,3 +28,4 @@ googleBtn.addEventListener("click", async () => {
     error.textContent = "Error al iniciar con Google";
   }
 });
+
