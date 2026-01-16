@@ -154,5 +154,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 🔥 ARRANCAMOS LA CÁMARA
-    iniciarCamara();
+/* ===== LOGICA DE INICIO (Fix de Audio) ===== */
+    const overlay = document.getElementById("start-overlay");
+    const btnStart = document.getElementById("btnStart");
+
+    // Función para desbloquear el audio del navegador
+    function unlockAudio() {
+        // Intentamos reproducir y pausar inmediatamente todos los audios
+        // Esto "calienta" el motor de audio
+        Object.values(audios).forEach(audio => {
+            audio.muted = true; // Silencio para que no suene feo al inicio
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+                audio.muted = false; // Quitamos silencio para cuando se use de verdad
+            }).catch(e => console.log("Unlock error:", e));
+        });
+    }
+
+    // Al hacer click en INICIAR
+    btnStart.addEventListener("click", () => {
+        unlockAudio(); // 1. Desbloqueamos audio
+        overlay.classList.add("hidden"); // 2. Quitamos la cortina
+        iniciarCamara(); // 3. Iniciamos la cámara
+    });
+
+    // Eliminamos la llamada directa a iniciarCamara() que tenías antes
+    // iniciarCamara(); <--- BORRA O COMENTA ESTA LÍNEA AL FINAL
 });
+
