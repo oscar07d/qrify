@@ -1,0 +1,237 @@
+/* CONFIGURACIÓN GENERAL DEL LAYOUT */
+body {
+  align-items: flex-start; /* Evita que se corte arriba si hay scroll */
+  padding: 40px 20px;
+}
+
+.app-card.admin-card {
+  width: 100%;
+  max-width: 900px; /* Mucho más ancho para que respire */
+  display: flex;
+  flex-direction: column;
+  gap: 32px; /* Espacio grande entre Header, Formulario y Lista */
+  padding: 32px;
+}
+
+/* 1. HEADER (Logo + Logout) */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  display: inline-block;
+  margin-right: 10px;
+  background: linear-gradient(to right, #fff, #7cf6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badge {
+  background: rgba(79, 156, 255, 0.15);
+  color: #4f9cff;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+/* BOTÓN LOGOUT */
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* 2. ÁREA DE ACCIÓN (FORMULARIO) */
+.action-area h3 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.creation-form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap; /* Por si la pantalla es muy pequeña, que bajen */
+}
+
+#customId {
+  flex: 1; 
+  min-width: 150px;
+}
+
+#nombre {
+  flex: 2; /* El nombre ocupa más espacio */
+  min-width: 200px;
+}
+
+.creation-form input {
+  flex: 1; /* Ocupa todo el espacio posible */
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  font-size: 1rem;
+  margin-bottom: 0; /* Override del estilo global */
+}
+
+.creation-form input:focus {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: #4f9cff;
+}
+
+.btn-create {
+  background: #4f9cff;
+  color: #0b0f1a;
+  border: none;
+  font-weight: 700;
+  padding: 0 28px;
+  border-radius: 16px; /* Coincide con el input */
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-create:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 156, 255, 0.3);
+}
+
+/* 3. ÁREA DE DATOS (LISTA GRID) */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.list-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.list-header small {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.guest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Tarjetas responsive */
+  gap: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* TARJETA DE INVITADO (Copia esto tal cual) */
+.guest-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.guest-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.guest-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+.guest-code {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+/* BADGES ESTADO */
+.status-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: auto; /* Empuja el badge al fondo si la tarjeta crece */
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-badge.active { color: #2ecc71; }
+.status-badge.used { color: #e74c3c; opacity: 0.7; }
+
+/* Agrupar los botones a la derecha */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espacio entre el ícono QR y el botón Salir */
+}
+
+/* Estilo del botón de escáner */
+.btn-scan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.7); /* Color inicial del ícono */
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+  line-height: 0; /* Evita espacios extra en SVGs */
+}
+
+/* Efecto al pasar el mouse */
+.btn-scan:hover {
+  background: rgba(79, 156, 255, 0.15); /* Azul suave de fondo */
+  border-color: #4f9cff;
+  color: #4f9cff; /* El ícono se vuelve azul neón */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 156, 255, 0.2);
+}
+
+/* Ajuste para que el SVG se vea nítido */
+.btn-scan svg {
+  display: block;
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+  .creation-form {
+    flex-direction: column;
+  }
+  .btn-create {
+    padding: 14px;
+    width: 100%;
+  }
+}
