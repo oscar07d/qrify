@@ -1,68 +1,161 @@
-body {
-  margin: 0;
-  height: 100vh;
-  background: #0f0f0f;
+/* CONTENEDOR PRINCIPAL */
+.login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* TARJETA DE LOGIN (Glassmorphism) */
+.login-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* CABECERA */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.login-header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, #fff, #7cf6ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+/* BOTÓN GOOGLE */
+.btn-google {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: system-ui;
-}
-
-form {
-  background: #1b1b1b;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 340px;
-  color: white;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-input, button {
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: 0.6rem;
-  border-radius: 6px;
-  border: none;
-  font-size: 1rem;
-}
-
-button {
-  background: #ff9800;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.google-btn {
-  background: #fff;
+  gap: 12px;
+  background: #ffffff;
   color: #000;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Para que el SVG no se deforme */
+.btn-google svg {
+  flex-shrink: 0;
+  display: block;
+}
+
+.btn-google:hover {
+  background: #f1f1f1;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* DIVISOR */
+.divider {
   display: flex;
   align-items: center;
-  gap: 10px;
-  justify-content: center;
-}
-
-.google-btn img {
-  width: 20px;
-  height: 20px;
-}
-
-.divider {
   text-align: center;
-  margin: 1rem 0;
-  color: #aaa;
+  margin: 25px 0;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-#error {
-  color: #ff5252;
-  margin-top: 0.5rem;
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+/* GRUPOS DE INPUT */
+.input-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+  margin-left: 4px;
+}
+
+.input-group input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4f9cff;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 4px rgba(79, 156, 255, 0.1);
+}
+
+/* BOTÓN LOGIN PRINCIPAL */
+.btn-login {
+  width: 100%;
+  background: #4f9cff;
+  color: #000;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  background: #7cf6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(79, 156, 255, 0.3);
+}
+
+/* MENSAJE DE ERROR */
+.error-msg {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: 15px;
   text-align: center;
-}
-
-.app-card {
-  max-width: 420px;
+  min-height: 1.2rem;
 }
