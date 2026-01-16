@@ -18,48 +18,75 @@
       <span class="badge">Panel de Control</span>
     </div>
     <div class="header-actions">
-    
-    <a href="../scan/index.html" class="btn-scan" title="Ir al Escáner">
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-        <path d="M70.84-687.7v-201.84H272.3v85.19H155.65v116.65H70.84Zm0 616.86V-272.3h84.81v116.65H272.3v84.81H70.84Zm616.86 0v-84.81h116.65V-272.3h85.19v201.46H687.7ZM804.35-687.7v-116.65H687.7v-85.19h201.84v201.84h-85.19ZM701.33-258h60v60h-60v-60Zm0-120h60v60h-60v-60Zm-60 60h60v60h-60v-60Zm-60 60h60v60h-60v-60Zm-60-60h60v60h-60v-60Zm120-120h60v60h-60v-60Zm-60 60h60v60h-60v-60Zm-60-60h60v60h-60v-60Zm240-324v240h-240v-240h240ZM438-438v240H198v-240h240Zm0-324v240H198v-240h240Zm-57.64 505.7v-124.06H256.3v124.06h124.06Zm0-323.34V-703.7H256.3v124.06h124.06Zm322.67 0V-703.7H578.97v124.06h124.06Z"/>
-      </svg>
-    </a>
-
-    <button id="logout" class="btn-logout">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-        </svg>
-        Salir
-    </button>
-  </div>
-</header>
-
-  <section class="action-area">
-    <h3>✨ Nueva Invitación</h3>
-    <form id="formInvitado" class="creation-form">
-      <input type="text" id="customId" placeholder="ID único (Ej: Cédula/Ticket)" required autocomplete="off">
       
-      <input type="text" id="nombre" placeholder="Nombre del invitado" required autocomplete="off">
-      
-      <button type="submit" class="btn-create">
-         Registrar
+      <button id="btnVerPersonal" class="btn-nav" title="Gestionar Personal">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M718.39-464.85 573.11-610.7l71.59-70.58 73.69 73.13 153.04-152.48 71.16 71.59-224.2 224.19Zm-360.78-23.76q-72.98 0-123.6-50.62-50.62-50.62-50.62-123.6 0-72.98 50.62-123.31 50.62-50.34 123.6-50.34 72.98 0 123.6 50.34 50.62 50.33 50.62 123.31t-50.62 123.6q-50.62 50.62-123.6 50.62ZM27.39-144.17v-126.35q0-38.26 19.69-69.92 19.68-31.65 53.07-48.48 62.68-30.56 127.16-46.37 64.49-15.82 130.3-15.82 66.89 0 131.4 15.53 64.51 15.54 126.06 46.09 33.38 16.75 53.07 48.25 19.69 31.5 19.69 70.69v126.38H27.39Zm101-101h458.44v-22.53q0-10.64-5.5-19.34-5.5-8.71-15-13.46-50.11-24.24-102.09-36.92-51.98-12.69-106.63-12.69-53.87 0-106.81 12.69-52.93 12.68-101.91 36.92-9.5 4.75-15 13.46-5.5 8.7-5.5 19.34v22.53Zm229.2-344.44q30.19 0 51.71-21.5 21.53-21.5 21.53-51.7 0-30.19-21.51-51.43-21.5-21.24-51.69-21.24-30.2 0-51.72 21.34t-21.52 51.31q0 30.2 21.5 51.71t51.7 21.51Zm.02 291.72Zm0-364.94Z"/></svg>
+        <span>Personal</span>
       </button>
-    </form>
-  </section>
 
-  <section class="data-area">
-    <div class="list-header">
-      <h3>Lista de Invitados</h3>
-      <small>Historial reciente</small>
+      <a href="../scan/index.html" class="btn-scan" title="Ir al Escáner">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+          <path d="M70.84-687.7v-201.84H272.3v85.19H155.65v116.65H70.84Zm0 616.86V-272.3h84.81v116.65H272.3v84.81H70.84Zm616.86 0v-84.81h116.65V-272.3h85.19v201.46H687.7ZM804.35-687.7v-116.65H687.7v-85.19h201.84v201.84h-85.19ZM701.33-258h60v60h-60v-60Zm0-120h60v60h-60v-60Zm-60 60h60v60h-60v-60Zm-60 60h60v60h-60v-60Zm-60-60h60v60h-60v-60Zm120-120h60v60h-60v-60Zm-60 60h60v60h-60v-60Zm-60-60h60v60h-60v-60Zm240-324v240h-240v-240h240ZM438-438v240H198v-240h240Zm0-324v240H198v-240h240Zm-57.64 505.7v-124.06H256.3v124.06h124.06Zm0-323.34V-703.7H256.3v124.06h124.06Zm322.67 0V-703.7H578.97v124.06h124.06Z"/>
+        </svg>
+      </a>
+
+      <button id="logout" class="btn-logout">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        </svg>
+        <span>Salir</span>
+      </button>
     </div>
-    <div id="lista" class="guest-grid">
+  </header>
+
+  <div id="vistaInvitados">
+    <section class="action-area">
+      <h3>✨ Nueva Invitación</h3>
+      <form id="formInvitado" class="creation-form">
+        <input type="text" id="customId" placeholder="ID único" required autocomplete="off">
+        <input type="text" id="nombre" placeholder="Nombre del invitado" required autocomplete="off">
+        <button type="submit" class="btn-create">Registrar</button>
+      </form>
+    </section>
+
+    <section class="data-area">
+      <div class="list-header">
+        <h3>Lista de Invitados</h3>
+        <small>Historial reciente</small>
       </div>
-  </section>
+      <div id="lista" class="guest-grid"></div>
+    </section>
+  </div>
+
+  <div id="vistaPersonal" class="hidden">
+    <section class="action-area staff-management">
+      <div class="header-with-back">
+          <button id="btnVolver" class="btn-icon-only">⬅️</button>
+          <h3>👥 Gestión de Personal</h3>
+      </div>
+      
+      <form id="formStaff" class="creation-form">
+        <input type="email" id="staffEmail" placeholder="Correo del staff" required>
+        <select id="staffRol">
+          <option value="staff">Staff (Lectura)</option>
+          <option value="staff_lider">Staff Lider</option>
+          <option value="admin">Administrador</option>
+        </select>
+        <button type="submit" class="btn-create">Autorizar</button>
+      </form>
+    </section>
+
+    <section class="data-area">
+      <div class="list-header">
+        <h3>Miembros Autorizados</h3>
+      </div>
+      <div id="listaStaff" class="staff-list">
+         </div>
+    </section>
+  </div>
 
 </div>
 
 <script type="module" src="app.js"></script>
 </body>
-
 </html>
-
