@@ -6,7 +6,7 @@ const googleBtn = document.getElementById("googleBtn");
 
 // Detectar a dónde volver
 const params = new URLSearchParams(window.location.search);
-const redirect = params.get("redirect") || "../admin/";
+const redirect = params.get("redirect") || "../admin/index.html";
 
 // LOGIN EMAIL
 form.addEventListener("submit", async (e) => {
@@ -28,4 +28,5 @@ googleBtn.addEventListener("click", async () => {
     error.textContent = "Error al iniciar con Google";
   }
 });
+
 
