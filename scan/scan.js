@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnLogout = document.getElementById("logout");
 
     // Contador local
-    let personasIngresadas = 0;
+    let personasIngresadas = localStorage.getItem('conteoQR') ? parseInt(localStorage.getItem('conteoQR')) : 0;
     counterNumber.textContent = personasIngresadas;
 
     // Inicializar Escáner
@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Actualizar contador
             personasIngresadas++;
+            localStorage.setItem('conteoQR', personasIngresadas);
             counterNumber.textContent = personasIngresadas;
 
             mostrarResultado("success", "✅ Acceso Permitido", `Bienvenido/a, ${data.nombre}`);
@@ -182,4 +183,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Eliminamos la llamada directa a iniciarCamara() que tenías antes
     // iniciarCamara(); <--- BORRA O COMENTA ESTA LÍNEA AL FINAL
 });
+
 
