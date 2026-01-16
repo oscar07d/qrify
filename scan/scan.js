@@ -35,11 +35,11 @@ const resultTitle = document.getElementById("resultTitle");
 const resultMessage = document.getElementById("resultMessage");
 
 /* ===== SONIDOS ===== */
-const sounds = {
-  scan: new Audio("/assets/sounds/Escaneo detectado.mp3"),
-  success: new Audio("/assets/sounds/Acceso permitido.mp3"),
-  error: new Audio("/assets/sounds/Invitación inválida-ya usada.mp3"),
-  system: new Audio("/assets/sounds/Error técnico.mp3")
+const audios = {
+  scan: new Audio("../assets/sounds/scan.mp3"),       // Antes: Escaneo detectado.mp3
+  success: new Audio("../assets/sounds/success.mp3"), // Antes: Acceso permitido.mp3
+  used: new Audio("../assets/sounds/used.mp3"),       // Antes: Invitación inválida...
+  error: new Audio("../assets/sounds/error.mp3")      // Antes: Error técnico.mp3
 };
 
 const counterEl = document.getElementById("counterNumber");
@@ -62,11 +62,11 @@ Object.values(sounds).forEach(sound => {
   sound.volume = 0.6;
 });
 
-function playSound(type) {
-  const sound = sounds[type];
-  if (!sound) return;
-  sound.currentTime = 0;
-  sound.play().catch(() => {});
+function playSound(tipo) {
+  if (audios[tipo]) {
+    audios[tipo].currentTime = 0; // Reinicia el audio si ya estaba sonando
+    audios[tipo].play().catch(e => console.log("Error audio:", e));
+  }
 }
 
 /* ===== SCANNER ===== */
@@ -165,3 +165,4 @@ document.getElementById("logout").addEventListener("click", async () => {
   await logout();
   window.location.href = "/login/";
 });
+
