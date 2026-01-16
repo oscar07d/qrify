@@ -1,20 +1,13 @@
 import { protegerPagina, logout } from "../js/auth.js";
-protegerPagina();
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
 import {
   getFirestore,
   doc,
   getDoc,
-  updateDoc,
-  collection,
-  query,
-  where,
-  onSnapshot
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 
-
-/* ===== FIREBASE ===== */
+// 1. CONFIGURACIÓN FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyDAsFvO8kn67uL65x-4HXloIZUxhiLSHeQ",
   authDomain: "qrify-oscar07dstudios.firebaseapp.com",
@@ -27,142 +20,139 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* ===== UI ===== */
-const scannerBox = document.querySelector(".scanner-container");
-const scanResult = document.getElementById("scanResult");
-const resultIcon = document.getElementById("resultIcon");
-const resultTitle = document.getElementById("resultTitle");
-const resultMessage = document.getElementById("resultMessage");
+// Protegemos la página de inmediato
+protegerPagina();
 
-/* ===== SONIDOS ===== */
+// 2. SONIDOS
 const audios = {
-  scan: new Audio("../assets/sounds/scan.mp3"),       // Antes: Escaneo detectado.mp3
-  success: new Audio("../assets/sounds/success.mp3"), // Antes: Acceso permitido.mp3
-  used: new Audio("../assets/sounds/used.mp3"),       // Antes: Invitación inválida...
-  error: new Audio("../assets/sounds/error.mp3")      // Antes: Error técnico.mp3
+  scan: new Audio("../assets/sounds/scan.mp3"),
+  success: new Audio("../assets/sounds/success.mp3"),
+  used: new Audio("../assets/sounds/used.mp3"),
+  error: new Audio("../assets/sounds/error.mp3")
 };
-
-const counterEl = document.getElementById("counterNumber");
-
-const invitacionesRef = collection(db, "invitaciones");
-const usadosQuery = query(invitacionesRef, where("usado", "==", true));
-
-onSnapshot(usadosQuery, (snapshot) => {
-  counterEl.textContent = snapshot.size;
-
-  counterEl.parentElement.classList.add("bump");
-  setTimeout(() => {
-    counterEl.parentElement.classList.remove("bump");
-  }, 300);
-});
-
-
-
-Object.values(sounds).forEach(sound => {
-  sound.volume = 0.6;
-});
 
 function playSound(tipo) {
   if (audios[tipo]) {
-    audios[tipo].currentTime = 0; // Reinicia el audio si ya estaba sonando
-    audios[tipo].play().catch(e => console.log("Error audio:", e));
+    audios[tipo].currentTime = 0;
+    audios[tipo].play().catch(e => console.log("Audio error:", e));
   }
 }
 
-/* ===== SCANNER ===== */
-const scanner = new Html5Qrcode("reader");
+// 3. LÓGICA DEL ESCÁNER (Dentro de DOMContentLoaded)
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // UI Elements
+    const scanResult = document.getElementById("scanResult");
+    const resultIcon = document.getElementById("resultIcon");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultMessage = document.getElementById("resultMessage");
+    const counterNumber = document.getElementById("counterNumber");
+    const btnLogout = document.getElementById("logout");
 
-/* ===== RESULTADOS ===== */
-function mostrarResultado(tipo, titulo, mensaje) {
-  scannerBox.className = `scanner-container ${tipo}`;
-  scanResult.className = `scan-result ${tipo}`;
-  scanResult.classList.remove("hidden");
+    // Contador local
+    let personasIngresadas = 0;
+    counterNumber.textContent = personasIngresadas;
 
-  resultIcon.textContent = tipo === "success" ? "✅" : "⛔";
-  resultTitle.textContent = titulo;
-  resultMessage.textContent = mensaje;
+    // Inicializar Escáner
+    const scanner = new Html5Qrcode("reader");
 
-  if (tipo === "success") playSound("success");
-  if (tipo === "error") playSound("error");
+    /* ===== FUNCIÓN DE INICIO SEGURO ===== */
+    function iniciarCamara() {
+        const config = {
+            fps: 20, 
+            qrbox: { width: 250, height: 250 },
+            aspectRatio: 1.0,
+             // Importante para leer pantallas y celulares rápido
+            experimentalFeatures: {
+                useBarCodeDetectorIfSupported: true
+            }
+        };
 
-  if (navigator.vibrate) {
-    navigator.vibrate(tipo === "success" ? 100 : [100, 50, 100]);
-  }
-
-  setTimeout(() => {
-    scanResult.classList.add("hidden");
-    scannerBox.className = "scanner-container scanning";
-    scanner.resume();
-  }, 2500);
-}
-
-/* ===== ESTADO INICIAL ===== */
-scannerBox.className = "scanner-container scanning";
-
-/* ===== INICIAR ESCÁNER ===== */
-scanner.start(
-  { facingMode: "environment" },
-  {
-    fps: 20, // SUBIR FPS (ayuda con el movimiento y pantallas)
-    qrbox: { width: 250, height: 250 }, // Un poco más grande
-    aspectRatio: 1.0,
-    experimentalFeatures: {
-      useBarCodeDetectorIfSupported: true // 🔥 ESTO ES LA CLAVE
+        scanner.start(
+            { facingMode: "environment" }, // Cámara trasera
+            config,
+            onScanSuccess,
+            (errorMessage) => {
+                // Errores menores de lectura (ignorar para no llenar la consola)
+            }
+        ).catch(err => {
+            console.error("Error iniciando cámara:", err);
+            // Si falla, intentamos de nuevo sin las features experimentales
+            // o mostramos alerta si es permiso denegado
+            alert("No se pudo iniciar la cámara. Verifica los permisos.");
+        });
     }
-  },
-  async (codigo) => {
-    scanner.pause();
-    playSound("scan");
 
-    try {
-      const ref = doc(db, "invitaciones", codigo);
-      const snap = await getDoc(ref);
+    /* ===== CUANDO DETECTA UN QR ===== */
+    async function onScanSuccess(codigo) {
+        scanner.pause(); // Pausar para procesar
+        playSound("scan");
 
-      if (!snap.exists()) {
-        mostrarResultado(
-          "error",
-          "Invitación inválida",
-          "Este código no existe"
-        );
-        return;
-      }
+        try {
+            // Referencia al documento usando el ID exacto del QR
+            const ref = doc(db, "invitaciones", codigo);
+            const snap = await getDoc(ref);
 
-      const data = snap.data();
+            if (!snap.exists()) {
+                mostrarResultado("error", "Invitación Inválida", "Este código no existe en el sistema.");
+                return; // Importante: Salir de la función
+            }
 
-      if (data.usado) {
-        mostrarResultado(
-          "error",
-          "Ya utilizada",
-          "Esta invitación ya fue usada"
-        );
-        return;
-      }
+            const data = snap.data();
 
-      await updateDoc(ref, {
-        usado: true,
-        usado_en: new Date()
-      });
+            if (data.usado) {
+                mostrarResultado("error", "⛔ Ya Utilizada", `Entró el: ${data.usado_en ? new Date(data.usado_en.toDate()).toLocaleTimeString() : '?'}`);
+                return;
+            }
 
-      mostrarResultado(
-        "success",
-        "Acceso permitido",
-        `Bienvenido ${data.nombre}`
-      );
+            // Si es válida y nueva:
+            await updateDoc(ref, {
+                usado: true,
+                usado_en: new Date()
+            });
 
-    } catch (e) {
-      playSound("system");
-      mostrarResultado(
-        "error",
-        "Error del sistema",
-        "Intenta nuevamente"
-      );
+            // Actualizar contador
+            personasIngresadas++;
+            counterNumber.textContent = personasIngresadas;
+
+            mostrarResultado("success", "✅ Acceso Permitido", `Bienvenido/a, ${data.nombre}`);
+
+        } catch (error) {
+            console.error("Error Firebase:", error);
+            mostrarResultado("error", "Error Técnico", "Revisa tu conexión a internet.");
+        }
     }
-  }
-);
 
-/* ===== LOGOUT ===== */
-document.getElementById("logout").addEventListener("click", async () => {
-  await logout();
-  window.location.href = "/login/";
+    /* ===== MOSTRAR RESULTADO EN PANTALLA ===== */
+    function mostrarResultado(tipo, titulo, mensaje) {
+        // Sonido
+        if(tipo === "success") playSound("success");
+        else if(tipo === "error" && titulo.includes("Ya Utilizada")) playSound("used");
+        else playSound("error");
+
+        // Visual
+        scanResult.className = `scan-result ${tipo}`; // Quita 'hidden', pone color
+        resultIcon.innerHTML = tipo === "success" ? "✨" : "⚠️";
+        resultTitle.textContent = titulo;
+        resultMessage.textContent = mensaje;
+
+        // Reiniciar escáner después de 3 segundos
+        setTimeout(() => {
+            scanResult.className = "scan-result hidden";
+            scanner.resume(); // Volver a escanear
+        }, 3000);
+    }
+
+    /* ===== BOTÓN LOGOUT ===== */
+    if(btnLogout) {
+        btnLogout.addEventListener("click", async () => {
+            // Detener cámara antes de salir para liberar memoria
+            try { await scanner.stop(); } catch(e) {}
+            await logout();
+            window.location.href = "../login/";
+        });
+    }
+
+    // 🔥 ARRANCAMOS LA CÁMARA
+    iniciarCamara();
 });
-
