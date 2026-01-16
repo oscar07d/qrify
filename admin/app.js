@@ -115,11 +115,15 @@ function cargarInvitados() {
 }
 
 window.eliminarInvitado = async (id) => {
-    if (confirm("¿Eliminar esta invitación?")) {
+    if (confirm("¿Estás seguro de eliminar a este invitado?")) {
         try {
-            await deleteDoc(doc(db, "invitaciones", id));
+            const docRef = doc(db, "invitaciones", id);
+            await deleteDoc(docRef);
+            // No necesitas llamar a cargarInvitados() porque onSnapshot lo hace solo
+            console.log("Invitado eliminado");
         } catch (error) {
-            alert("No tienes permiso para eliminar invitados.");
+            console.error("Error al eliminar invitado:", error);
+            alert("Error de permisos: Solo Admins o Líderes pueden borrar.");
         }
     }
 };
@@ -254,3 +258,4 @@ document.getElementById("logout").addEventListener("click", async () => {
   await logout();
   window.location.href = "../login/index.html";
 });
+
