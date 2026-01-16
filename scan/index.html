@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,44 +12,43 @@
 
 <body>
 
-<div id="start-overlay" class="overlay">
-  <div class="overlay-content">
-    <h1>📷 Qrify Scanner</h1>
-    <p>Haz clic para activar cámara y sonidos</p>
-    <button id="btnStart">INICIAR AHORA</button>
-  </div>
-</div>
-  
-<div class="app-card scan-card">
-  <div class="scan-header">
-    <div>
-      <h1>Escanear Invitación</h1>
-      <p>Coloca el código dentro del marco</p>
+  <div id="start-overlay" class="overlay">
+    <div class="overlay-content">
+      <h1>📷 Qrify Scanner</h1>
+      <p>Haz clic para activar cámara y sonidos</p>
+      <button id="btnStart">INICIAR AHORA</button>
     </div>
+  </div>
 
-    
+  <div class="app-card scan-card">
+    <div class="scan-header">
+      <div>
+        <h1>Escanear Invitación</h1>
+        <p>Coloca el código dentro del marco</p>
+      </div>
 
-    <button id="logout" class="logout-btn">Salir</button>
 
-    <div class="counter">
+
+      <button id="logout" class="logout-btn">Salir</button>
+
+      <div class="counter">
         <span id="counterNumber">0</span>
         <small>Personas ingresadas</small>
-    </div>
-    
-  </div>
-  <div class="scanner-container">
-    <div id="reader"></div>
+      </div>
 
-    <div id="scanResult" class="scan-result hidden">
-      <div class="icon" id="resultIcon"></div>
-      <h2 id="resultTitle"></h2>
-      <p id="resultMessage"></p>
+    </div>
+    <div class="scanner-container">
+      <div id="reader"></div>
+
+      <div id="scanResult" class="scan-result hidden">
+        <div class="icon" id="resultIcon"></div>
+        <h2 id="resultTitle"></h2>
+        <p id="resultMessage"></p>
+      </div>
     </div>
   </div>
-</div>
 
-<script type="module" src="scan.js"></script>
+  <script type="module" src="scan.js"></script>
 </body>
+
 </html>
-
-
