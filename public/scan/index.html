@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qrify | Scanner</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+
+<body>
+<div class="app-card scan-card">
+  <div class="scan-header">
+    <div>
+      <h1>Escanear Invitación</h1>
+      <p>Coloca el código dentro del marco</p>
+    </div>
+
+    
+
+    <button id="logout" class="logout-btn">Salir</button>
+
+    <div class="counter">
+        <span id="counterNumber">0</span>
+        <small>Personas ingresadas</small>
+    </div>
+    
+  </div>
+  <div class="scanner-container">
+    <div id="reader"></div>
+
+    <div id="scanResult" class="scan-result hidden">
+      <div class="icon" id="resultIcon"></div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultMessage"></p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="scan.js"></script>
+</body>
+</html>
