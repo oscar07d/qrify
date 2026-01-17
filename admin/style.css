@@ -436,6 +436,100 @@ body {
     width: 18px;
     height: 18px;
 }
+
+/* ==========================================
+   📱 OPTIMIZACIÓN RESPONSIVA (Mobile First)
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Ajuste general del contenedor */
+    body {
+        padding: 10px; /* Menos espacio en las orillas */
+    }
+
+    .app-card.admin-card {
+        padding: 20px 15px; /* Más aire interno */
+        gap: 24px;
+    }
+
+    /* 1. Header: Logo arriba, botones abajo */
+    .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap; /* Para que los botones no se amontonen */
+    }
+
+    .btn-nav, .btn-scan, .btn-logout {
+        flex: 1; /* Los botones crecen para llenar el ancho */
+        min-width: 120px;
+        font-size: 0.8rem;
+        height: 44px; /* Altura ideal para el dedo */
+    }
+
+    /* 2. Formularios: Todo en una sola columna */
+    .creation-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #customId, #nombre, .creation-form input, .creation-form select {
+        width: 100%;
+        flex: none; /* Quitamos el flex: 2 para que no se peleen */
+        min-width: 0;
+    }
+
+    .btn-create {
+        width: 100%;
+        height: 50px;
+        border-radius: 12px;
+    }
+
+    /* 3. Listas y Tarjetas */
+    .guest-grid {
+        grid-template-columns: 1fr; /* Una sola tarjeta por fila */
+        gap: 12px;
+    }
+
+    .staff-item {
+        flex-direction: column; /* Email arriba, controles abajo */
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .staff-actions {
+        width: 100%;
+        justify-content: space-between; /* El selector a la izquierda, borrar a la derecha */
+    }
+
+    /* 4. Ajustes de fuentes para que nada se desborde */
+    .brand h1 {
+        font-size: 1.5rem;
+    }
+    
+    .guest-name {
+        font-size: 1rem;
+        word-break: break-all; /* Evita que nombres largos rompan la tarjeta */
+    }
+}
+
+/* Extra para pantallas muy pequeñas (iPhone SE, etc) */
+@media (max-width: 380px) {
+    .header-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 botones por fila */
+    }
+    
+    .btn-logout {
+        grid-column: span 2; /* El logout ocupa toda la fila de abajo */
+    }
+}
+
 /* Responsive para móviles */
 @media (max-width: 600px) {
   .creation-form {
@@ -445,4 +539,62 @@ body {
     padding: 14px;
     width: 100%;
   }
+}
+
+/* ==========================================
+   📱 ULTRA-RESPONSIVE (Ajuste de Botones)
+   ========================================== */
+
+@media (max-width: 480px) {
+    /* Header: Evitamos que los botones se estiren deformemente */
+    .header-actions {
+        display: flex;
+        flex-direction: row; /* Los mantenemos en fila si caben */
+        flex-wrap: wrap; 
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    /* Ajuste para que los botones de arriba no se vean raros */
+    .btn-nav, .btn-scan, .btn-logout {
+        flex: 0 1 auto; /* NO dejamos que crezcan al 100% (esto evita que se deformen) */
+        height: 42px;
+        padding: 0 12px;
+        font-size: 0.85rem;
+        min-width: 42px; /* Mantiene cuadrados los botones con iconos */
+    }
+
+    .btn-logout span, .btn-nav span {
+        display: none; /* En celulares muy pequeños, ocultamos el texto y dejamos solo el icono */
+    }
+
+    /* Tarjetas de Invitados: Arreglo de la papelera */
+    .guest-card {
+        padding: 15px;
+        display: grid;
+        grid-template-columns: 1fr auto; /* Nombre a la izquierda, papelera a la derecha */
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Forzamos que la papelera se quede en su lugar */
+    .btn-icon-del {
+        position: relative; /* Cambiamos de absolute a relative para que no flote */
+        top: 0;
+        right: 0;
+        grid-row: span 2; /* Que ocupe la altura de la tarjeta */
+    }
+
+    .guest-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    /* Input: Evitar zoom y deformación */
+    .creation-form input {
+        font-size: 16px !important;
+        padding: 14px;
+    }
 }
