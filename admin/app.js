@@ -94,13 +94,15 @@ function cargarInvitados() {
           const div = document.createElement("div");
           div.className = "guest-card";
           div.innerHTML = `
-              <span class="guest-name">${data.nombre}</span>
-              <span class="guest-code">ID: ${id}</span>
-              <div class="status-badge ${data.usado ? 'used' : 'active'}">
-                  ${data.usado ? '⛔ Usado' : '✅ Activo'}
+              <div class="guest-info">
+                  <span class="guest-name">${data.nombre}</span>
+                  <span class="guest-code">ID: ${id}</span>
+                  <div class="status-badge ${data.usado ? 'used' : 'active'}">
+                      ${data.usado ? '⛔ Usado' : '✅ Activo'}
+                  </div>
               </div>
               
-              <button onclick="eliminarInvitado('${id}')" class="btn-icon-del" title="Eliminar">
+              <button onclick="eliminarInvitado('${id}')" class="btn-icon-del">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor">
                       <path d="M276.78-110.78q-42.24 0-71.62-29.38-29.38-29.38-29.38-71.62v-499h-52v-101H349v-51h261.87v51h226.35v101h-52v499q0 42.24-29.38 71.62-29.38 29.38-71.62 29.38H276.78Zm407.44-600H276.78v499h407.44v-499ZM354.83-284.07h88v-355h-88v355Zm163.34 0h88v-355h-88v355ZM276.78-710.78v499-499Z"/>
                   </svg>
@@ -264,5 +266,3 @@ document.getElementById("logout").addEventListener("click", async () => {
   await logout();
   window.location.href = "../login/index.html";
 });
-
-
