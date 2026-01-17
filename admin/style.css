@@ -114,10 +114,15 @@ body {
 
 /* 3. ÁREA DE DATOS (LISTA GRID) */
 .list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    /* Añadimos este margen para separar del formulario */
+    margin-top: 40px; 
+    margin-bottom: 20px;
+    padding-top: 10px;
+    /* Opcional: una línea muy sutil para dividir secciones */
+    border-top: 1px solid rgba(255, 255, 255, 0.05); 
 }
 
 .list-header h3 {
@@ -129,12 +134,20 @@ body {
   color: rgba(255, 255, 255, 0.4);
 }
 
+@media (max-width: 480px) {
+    .list-header {
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+}
+
 .guest-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 0; /* Ya lo maneja el list-header */
 }
+
 /* TARJETA DE INVITADO (Copia esto tal cual) */
 .guest-card {
     position: relative; /* Necesario para ubicar el botón de eliminar */
@@ -162,26 +175,41 @@ body {
 }
 
 .guest-code {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.5);
     font-family: monospace;
+    word-break: break-all; /* Para que no rompa la tarjeta en móviles */
 }
 
 /* BADGES ESTADO */
 .status-badge {
-    align-self: flex-start;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    display: flex;
+    display: inline-flex; /* Hace que el fondo solo ocupe el espacio del texto */
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 50px; /* Forma de píldora rectangular suave */
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    width: fit-content; /* Refuerza que no se estire al 100% */
+    margin-top: 5px;
 }
 
-.status-badge.active { background: rgba(0, 255, 127, 0.15); color: #00ff7f; }
-.status-badge.used { background: rgba(255, 77, 77, 0.15); color: #ff4d4d; }
+.status-badge.active { 
+    background: rgba(0, 255, 127, 0.1); 
+    color: #00ff7f; 
+    border: 1px solid rgba(0, 255, 127, 0.2);
+}
+
+.status-badge.used { 
+    background: rgba(255, 77, 77, 0.1); 
+    color: #ff4d4d; 
+    border: 1px solid rgba(255, 77, 77, 0.2);
+}
+
+.status-badge span {
+    font-size: 1rem;
+}
 
 /* Agrupar los botones a la derecha */
 .header-actions {
@@ -435,6 +463,26 @@ body {
 .btn-icon-del svg {
     width: 18px;
     height: 18px;
+}
+
+.guest-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Espacio uniforme entre Nombre, ID y Estado */
+    align-items: flex-start; /* Alinea todo a la izquierda */
+}
+
+.guest-id-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.label-id {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+    font-weight: bold;
 }
 
 /* ==========================================
