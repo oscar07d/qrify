@@ -96,9 +96,12 @@ function cargarInvitados() {
           div.innerHTML = `
               <div class="guest-info">
                   <span class="guest-name">${data.nombre}</span>
-                  <span class="guest-code">ID: ${id}</span>
+                  <div class="guest-id-container">
+                      <span class="label-id">ID:</span>
+                      <span class="guest-code">${id}</span>
+                  </div>
                   <div class="status-badge ${data.usado ? 'used' : 'active'}">
-                      ${data.usado ? '⛔ Usado' : '✅ Activo'}
+                      ${data.usado ? '<span>⛔</span> USADO' : '<span>✅</span> ACTIVO'}
                   </div>
               </div>
               
